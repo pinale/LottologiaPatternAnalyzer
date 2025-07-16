@@ -1,1 +1,1 @@
-LottologiaPatternAnalizer
+# LottologiaPatternAnalizer

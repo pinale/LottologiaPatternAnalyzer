@@ -24,19 +24,16 @@ namespace LottologiaPatternAnalyzer.Engine
         {
             Console.WriteLine("Analyzing Lottologia...");
 
-            //string dbpathStorico = @"Data Source=C:\PROGETTI\Personali\LottologiaPatternAnalyzer\Database\10el5.db";
-            //string dbpathAnalisi = @"Data Source=C:\PROGETTI\Personali\LottologiaPatternAnalyzer\Database\LottologiaPatternAnalizer.db";
-            string dbpathStorico = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "10el5.db")}";
-            string dbpathAnalisi = $"Data Source={Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Database", "LottologiaPatternAnalizer.db")}";
-
+            string basePath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.FullName;
+            if (basePath == null)
+                throw new Exception("Impossibile determinare la path relativa al progetto.");
+            string dbpathStorico = $"Data Source={Path.Combine(basePath, "Database", "10el5.db")}";
+            string dbpathAnalisi = $"Data Source={Path.Combine(basePath, "Database", "10el5LottologiaPatternAnalizerdb")}";
+            
             SqliteService dbServiceStorico = new SqliteService(dbpathStorico);
             SqliteService dbServiceAnalisi = new SqliteService(dbpathAnalisi);
-            
-            //DateTime drawDate = new DateTime(2025, 06, 01);
+           
             DataTable dt = dbServiceStorico.GetDrawDay(analisysDay);
-               
-                
-            //int punteggioMinimo = 3;
 
             //var series = dbServiceAnalisi.GetSerieByCode("5_1_%");  //okkio, se metto 5_1% prendera anche i 5_10_xx _ è un carattere jolly in sqlite, viene fatto l'escaping interno
             var series = dbServiceAnalisi.GetSerieByCode(seriesToAnalize);  //okkio, se metto 5_1% prendera anche i 5_10_xx _ è un carattere jolly in sqlite, viene fatto l'escaping interno
