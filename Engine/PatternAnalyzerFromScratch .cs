@@ -28,7 +28,7 @@ namespace LottologiaPatternAnalyzer.Engine
             if (basePath == null)
                 throw new Exception("Impossibile determinare la path relativa al progetto.");
             string dbpathStorico = $"Data Source={Path.Combine(basePath, "Database", "10el5.db")}";
-            string dbpathAnalisi = $"Data Source={Path.Combine(basePath, "Database", "10el5LottologiaPatternAnalizerdb")}";
+            string dbpathAnalisi = $"Data Source={Path.Combine(basePath, "Database", "LottologiaPatternAnalizer.db")}";
             
             SqliteService dbServiceStorico = new SqliteService(dbpathStorico);
             SqliteService dbServiceAnalisi = new SqliteService(dbpathAnalisi);
